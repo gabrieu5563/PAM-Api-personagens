@@ -1,0 +1,3 @@
+criar nova api ------> dotnet new webapi
+compilar --> dotnet buid
+executar api ---> dotnet run
