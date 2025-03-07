@@ -12,6 +12,7 @@ namespace rpgapi.Controllers
     [Route("[controller]")]
     public class PersonagensExercicioController : ControllerBase
     {
+        //Gabriel Joaqim e João Victor
          private static List<Personagem> personagens = new List<Personagem>()
         {
             new Personagem() { Id = 1, Nome = "Frodo", PontosVida=100, Forca=17, Defesa=23, Inteligencia=33, Classe=ClasseEnum.Cavaleiro},
@@ -28,7 +29,7 @@ namespace rpgapi.Controllers
         public IActionResult GetByNome(string nome)
         {
             var personagem = personagens.Find(p => p.Nome == nome);
-            return personagem != null ? Ok(personagem) : NotFound("Personagem não encontrado.");
+            return personagem != null ? Ok(personagem) : NotFound("NotFound.");
         }
 
         //B)
@@ -48,7 +49,7 @@ namespace rpgapi.Controllers
         {
             int quantidade = personagens.Count;
             int somaInteligencia = personagens.Sum(p => p.Inteligencia);
-            return Ok(quantidade, somaInteligencia);
+            return Ok(new { Quantidade = quantidade, SomaInteligencia = somaInteligencia });
         }
 
         //D)
@@ -63,7 +64,7 @@ namespace rpgapi.Controllers
 
         //E)
         [HttpPost("PostValidacaoMago")]
-        public IActionResult PostValidacao([FromBody] Personagem personagem)
+        public IActionResult PostValidacaoMago([FromBody] Personagem personagem)
         {
             if (personagem.Inteligencia < 35)
                 return BadRequest("Inteligência de magos deve ser acima de 35");
@@ -75,9 +76,8 @@ namespace rpgapi.Controllers
         [HttpGet("GetByClasse/{idClasse}")]
         public IActionResult GetByClasse(int idClasse)
         {
-            var lista = personagens.Where(p => p.Classe == idClasse).ToList();
+            var lista = personagens.Where(p => p.Classe == (ClasseEnum)idClasse).ToList();
             return Ok(lista);
         }
-
     }
 }
