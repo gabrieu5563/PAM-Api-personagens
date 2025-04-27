@@ -4,15 +4,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using rpgapi.Data;
-
+using RpgApi.Data;
 
 #nullable disable
 
 namespace RpgApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250331022018_MigracaoArma")]
+    [Migration("20250331112702_MigracaoArma")]
     partial class MigracaoArma
     {
         /// <inheritdoc />

@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using rpgapi.Models;
-using rpgapi.Models.Enums;
-using RpgApi.Models;
+using RpgApi.Models.Enuns;
 
-namespace rpgapi.models
+
+namespace RpgApi.Models
 {
     public class Personagem
     {
         public int Id { get; set; }
-        public string Nome { get; set; } = string.Empty;
+        public string Nome { get; set; } = string.Empty; //Declarar valor inicial vazio
         public int PontosVida { get; set; }
         public int Forca { get; set; }
         public int Defesa { get; set; }
@@ -20,15 +19,15 @@ namespace rpgapi.models
         public ClasseEnum Classe { get; set; }
         public byte[]? FotoPersonagem { get; set; }
         public int? UsuarioId { get; set; }
+        public List<PersonagemHabilidade> PersonagemHabilidades { get; set; } = [];
 
-        [JsonIgnore]
+        [JsonIgnore] 
         public Usuario? Usuario { get; set; }
 
-        [JsonIgnore]
+        [JsonIgnore] 
         public Arma? Arma { get; set; }
         public int Disputas { get; set; }
         public int Vitorias { get; set; }
         public int Derrotas { get; set; }
-        public List<PersonagemHabilidade> personagemHabilidades { get; set; } = [];
     }
 }

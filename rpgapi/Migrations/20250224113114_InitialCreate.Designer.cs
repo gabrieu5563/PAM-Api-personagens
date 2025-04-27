@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using rpgapi.Data;
+using RpgApi.Data;
 
 #nullable disable
 
-namespace rpgapi.Migrations
+namespace RpgApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250224113112_InitialCreate")]
+    [Migration("20250224113114_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -24,7 +24,7 @@ namespace rpgapi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("rpgapi.models.Personagem", b =>
+            modelBuilder.Entity("RpgApi.Models.Personagem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -53,7 +53,7 @@ namespace rpgapi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TB_PERSONAGEM", (string)null);
+                    b.ToTable("TB_PERSONAGENS", (string)null);
 
                     b.HasData(
                         new
