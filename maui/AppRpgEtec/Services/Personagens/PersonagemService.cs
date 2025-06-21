@@ -11,7 +11,10 @@ namespace AppRpgEtec.Services.Personagens
     public class PersonagemService : Request
     {
         private readonly Request _request;
-        private const string apiUrlBase = "https://rpgapi3ai2025.azurewebsites.net";
+        private const string apiUrlBase = "http://localhost:5287/Personagens";
+        //Azure: https://rpgapi3ai2025.azurewebsites.net/Personagens
+        //Somee: http://luizfernando.somee.com/RpgApi/Personagens
+        //Local: http://localhost:5287/Personagens
 
         private string _token;
 

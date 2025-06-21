@@ -17,35 +17,37 @@ namespace RpgApi.Controllers
     {
         private readonly DataContext _context;
 
-        public UsuariosController(DataContext context){
+        public UsuariosController(DataContext context)
+        {
             _context = context;
         }
 
-        private async Task<bool> UsuarioExistente(string username){
-            if(await _context.TB_USUARIOS.AnyAsync(x => x.Username.ToLower() == username.ToLower())){
-                return true;
-            }
-            return false;
-        }
+        private async Task<bool> UsuarioExistente(string username)
+            => await _context.TB_USUARIOS
+                             .AnyAsync(x => x.Username.ToLower() == username.ToLower());
 
+        // <-- Aqui fica só UM POST Registrar
         [HttpPost("Registrar")]
-        public async Task<IActionResult> RegistraUsuario(Usuario user){
+        public async Task<IActionResult> Registrar([FromBody] Usuario user)
+        {
             try
             {
-                if(await UsuarioExistente(user.Username)){
-                    throw new System.Exception("Nome de usuário já existe");
-                }
+                if (await UsuarioExistente(user.Username))
+                    return BadRequest("Nome de usuário já existe");
 
+                // Gera hash+salt e limpa a senha em texto
                 Criptografia.CriarPasswordHash(user.PasswordString, out byte[] hash, out byte[] salt);
-                user.PasswordString = string.Empty;
                 user.PasswordHash = hash;
                 user.PasswordSalt = salt;
+                user.PasswordString = string.Empty;
+
                 await _context.TB_USUARIOS.AddAsync(user);
                 await _context.SaveChangesAsync();
 
                 return Ok(user.Id);
             }
-            catch(System.Exception ex){
+            catch (Exception ex)
+            {
                 return BadRequest(ex.Message);
             }
         }
