@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\c4zum\\Desktop\\PAM-Api-personagens\\rpgapi\\RpgApi.csproj": {}
+    "C:\\Users\\c4zum\\Desktop\\PAM-Api-personagens\\rpgapi\\rpgapi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\c4zum\\Desktop\\PAM-Api-personagens\\rpgapi\\RpgApi.csproj": {
+    "C:\\Users\\c4zum\\Desktop\\PAM-Api-personagens\\rpgapi\\rpgapi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\c4zum\\Desktop\\PAM-Api-personagens\\rpgapi\\RpgApi.csproj",
-        "projectName": "RpgApi",
-        "projectPath": "C:\\Users\\c4zum\\Desktop\\PAM-Api-personagens\\rpgapi\\RpgApi.csproj",
+        "projectUniqueName": "C:\\Users\\c4zum\\Desktop\\PAM-Api-personagens\\rpgapi\\rpgapi.csproj",
+        "projectName": "rpgapi",
+        "projectPath": "C:\\Users\\c4zum\\Desktop\\PAM-Api-personagens\\rpgapi\\rpgapi.csproj",
         "packagesPath": "C:\\Users\\c4zum\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\c4zum\\Desktop\\PAM-Api-personagens\\rpgapi\\obj\\",
         "projectStyle": "PackageReference",
@@ -45,7 +45,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
@@ -89,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

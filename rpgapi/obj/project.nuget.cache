@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QhOlir15wa0=",
+  "dgSpecHash": "NerM0s4nD3Y=",
   "success": true,
-  "projectFilePath": "C:\\Users\\c4zum\\Desktop\\PAM-Api-personagens\\rpgapi\\RpgApi.csproj",
+  "projectFilePath": "C:\\Users\\c4zum\\Desktop\\PAM-Api-personagens\\rpgapi\\rpgapi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\c4zum\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\c4zum\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
