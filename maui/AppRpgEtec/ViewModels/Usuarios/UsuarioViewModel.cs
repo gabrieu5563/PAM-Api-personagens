@@ -2,42 +2,38 @@
 using AppRpgEtec.Services.Usuarios;
 using AppRpgEtec.Views.Personagens;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Storage;
 
 namespace AppRpgEtec.ViewModels.Usuarios
 {
     public class UsuarioViewModel : BaseViewModel
     {
-        private UsuarioService _uService;
-        public ICommand AutenticarCommand { get; set; }
-        public ICommand RegistrarCommand { get; set; }
-        public ICommand DirecionarCadastroCommand { get; set; }
+        private readonly UsuarioService _uService;
+
+        public ICommand AutenticarCommand { get; private set; }
+        public ICommand RegistrarCommand { get; private set; }
+        public ICommand DirecionarCadastroCommand { get; private set; }
+
         public UsuarioViewModel()
         {
-
             _uService = new UsuarioService();
             InicializarCommands();
-            Application.Current.MainPage = new AppShell();
         }
 
-        public async void InicializarCommands()
+        private void InicializarCommands()
         {
-            
             AutenticarCommand = new Command(async () => await AutenticarUsuario());
             RegistrarCommand = new Command(async () => await RegistrarUsuario());
             DirecionarCadastroCommand = new Command(async () => await DirecionarParaCadastro());
         }
 
+        #region Atributos e Propriedades
 
-        #region AtributosPropriedades
         private string login = string.Empty;
-        private string senha = string.Empty;
-        //CTRL R + E -> Cria propriedade do atributo
-
         public string Login
         {
             get => login;
@@ -47,6 +43,8 @@ namespace AppRpgEtec.ViewModels.Usuarios
                 OnPropertyChanged();
             }
         }
+
+        private string senha = string.Empty;
         public string Senha
         {
             get => senha;
@@ -56,99 +54,94 @@ namespace AppRpgEtec.ViewModels.Usuarios
                 OnPropertyChanged();
             }
         }
+
         #endregion
 
-        #region Metodos
+        #region Métodos
 
-        private CancellationTokenSource _cancelTokenSource;
-        private bool _isCheckingLocation;
         public async Task AutenticarUsuario()
         {
-
             try
             {
-                Usuario u = new Usuario();
-                u.Username = Login;
-                u.PasswordString = Senha;
+                var u = new Usuario
+                {
+                    Username = Login,
+                    PasswordString = Senha
+                };
+
                 Usuario uAutenticado = await _uService.PostAutenticarUsuarioAsync(u);
 
-                //if (!string.IsNullOrEmpty(uAutenticado.Token))
                 if (uAutenticado.Id != 0)
                 {
-                    string mensagem = $"Bem vindo {u.Username}";
                     Preferences.Set("UsuarioToken", uAutenticado.Token);
                     Preferences.Set("UsuarioId", uAutenticado.Id);
                     Preferences.Set("UsuarioUsername", uAutenticado.Username);
                     Preferences.Set("UsuarioPerfil", uAutenticado.Perfil);
 
                     await Application.Current.MainPage
-                        .DisplayAlert("Informação", mensagem, "Ok");
+                        .DisplayAlert("Bem‑vindo", $"Olá, {uAutenticado.Username}!", "OK");
 
-                    Application.Current.MainPage = new MainPage();
-
-                    Preferences.Set("UsuarioPerfil", uAutenticado.Perfil);
-
-                    await Application.Current.MainPage
-                        .DisplayAlert("Informação", mensagem, "Ok");
-                    Application.Current.MainPage = new ListagemView();
+                    // Após login bem‑sucedido, aí sim redefinimos a MainPage:
+                    Application.Current.MainPage = new AppShell();
                 }
                 else
                 {
                     await Application.Current.MainPage
-                        .DisplayAlert("Informação", "Dados incorretos :(", "Ok");
+                        .DisplayAlert("Informação", "Usuário ou senha incorretos.", "OK");
                 }
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Informação",
-                        ex.Message + " Detalhes: " + ex.InnerException, "Ok");
+                await Application.Current.MainPage.DisplayAlert("Erro",
+                    ex.Message + "\n" + ex.InnerException, "OK");
             }
-            
         }
 
-        public async Task RegistrarUsuario()//Método para registrar um usuário     
+        public async Task RegistrarUsuario()
         {
             try
             {
-                Usuario u = new Usuario();
-                u.Username = Login;
-                u.PasswordString = Senha;
+                var u = new Usuario
+                {
+                    Username = Login,
+                    PasswordString = Senha
+                };
 
                 Usuario uRegistrado = await _uService.PostRegistrarUsuarioAsync(u);
 
                 if (uRegistrado.Id != 0)
                 {
-                    string mensagem = $"Usuário Id {uRegistrado.Id} registrado com sucesso.";
-                    await Application.Current.MainPage.DisplayAlert("Informação", mensagem, "Ok");
-
                     await Application.Current.MainPage
-                        .Navigation.PopAsync();//Remove a página da pilha de visualização
+                        .DisplayAlert("Sucesso",
+                            $"Usuário (Id {uRegistrado.Id}) registrado com sucesso.", "OK");
+
+                    // volta para a página de login
+                    await Application.Current.MainPage.Navigation.PopAsync();
                 }
             }
             catch (Exception ex)
             {
                 await Application.Current.MainPage
-                    .DisplayAlert("Informação", ex.Message + " Detalhes: " + ex.InnerException, "Ok");
+                    .DisplayAlert("Erro",
+                        ex.Message + "\n" + ex.InnerException, "OK");
             }
         }
 
-        public async Task DirecionarParaCadastro()//Método para exibição da view de Cadastro      
+        public async Task DirecionarParaCadastro()
         {
             try
             {
-                await Application.Current.MainPage.
-                    Navigation.PushAsync(new Views.Usuarios.CadastroView());
+                await Application.Current.MainPage
+                    .Navigation.PushAsync(new Views.Usuarios.CadastroView());
             }
             catch (Exception ex)
             {
                 await Application.Current.MainPage
-                    .DisplayAlert("Informação", ex.Message + " Detalhes: " + ex.InnerException, "Ok");
+                    .DisplayAlert("Erro",
+                        ex.Message + "\n" + ex.InnerException, "OK");
             }
         }
 
-        //android:icon="@mipmap/appicon" android:roundIcon="@mipmap/appicon_round"
-
         #endregion
-
     }
 }
