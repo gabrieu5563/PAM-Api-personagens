@@ -1,5 +1,5 @@
 # RpgApi<br>
-## Gabriel Joaquim e João Victor##<br>
+## Gabriel Joaquim e João Victor<br>
 
 <br><br>
 Print tela de listagem
