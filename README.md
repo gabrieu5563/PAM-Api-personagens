@@ -2,6 +2,7 @@
 ## Gabriel Joaquim e João Victor<br>
 
 <br>
-Print tela de listagem
-![image](https://github.com/user-attachments/assets/84f7a517-8fbc-45ac-a0e4-45d6bfd5535d)
+Print tela de listagem<br>
+![image](https://github.com/user-attachments/assets/d2062522-30ef-49ae-b60e-9ec762bc10fd)
+
 
